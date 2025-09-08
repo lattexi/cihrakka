@@ -1,7 +1,7 @@
 DROP DATABASE IF EXISTS cicdtest;
 CREATE DATABASE cicdtest;
-CREATE USER 'myusername'@'localhost' IDENTIFIED BY 'mypassword';
-GRANT ALL PRIVILEGES ON `cicdtest`.* TO 'myusername'@'localhost';
+CREATE USER 'ciharkka'@'localhost' IDENTIFIED BY 'mypassword';
+GRANT ALL PRIVILEGES ON `cicdtest`.* TO 'ciharkka'@'localhost';
 FLUSH PRIVILEGES;
 
 USE cicdtest;
