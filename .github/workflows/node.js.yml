@@ -36,13 +36,6 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run test
-      - name: Generate API documentation
-        run: npm run apidoc
-      - name: Upload API documentation artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: apidoc-node-${{ matrix.node-version }}
-          path: ./apidoc/
 
   deploy:
     needs: build
@@ -61,6 +54,4 @@ jobs:
             docker compose down
             git pull origin main
             npm install
-            npm run test
-            npm run apidoc
             docker-compose up -d --build
