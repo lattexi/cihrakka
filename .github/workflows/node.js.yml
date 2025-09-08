@@ -36,3 +36,32 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run test
+      - name: Generate API documentation
+        run: npm run apidoc
+      - name: Upload API documentation artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: apidoc-node-${{ matrix.node-version }}
+          path: ./apidoc/
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy using ssh
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.PRIVATE_KEY }}
+          port: 22
+          script: |
+            cd /var/node/ciharkka
+            docker-compose down
+            git pull origin main
+            git status
+            npm install
+            npm run test
+            npm run apidoc
+            docker-compose up -d --build
