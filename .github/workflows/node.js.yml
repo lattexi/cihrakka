@@ -11,6 +11,8 @@ on:
 
 jobs:
   build:
+    env:
+      NODE_ENV: development
     runs-on: ubuntu-latest
 
     strategy:
@@ -26,7 +28,7 @@ jobs:
           sudo systemctl start mysql
           cp .env.sample .env
           mysql -u root -proot < db/create-db.sql
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node-version }} in ${{ env.NODE_ENV }} mode
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
