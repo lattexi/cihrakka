@@ -25,7 +25,7 @@ jobs:
         run: |
           sudo systemctl start mysql
           cp .env.sample .env
-          sudo mysql -u root < db/create-db.sql
+          mysql -u root < db/create-db.sql
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
