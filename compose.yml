@@ -1,0 +1,10 @@
+services:
+  ciharkka:
+    build: .
+    container_name: ciharkka
+    ports:
+      - '3005:3000'
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+    restart: unless-stopped
